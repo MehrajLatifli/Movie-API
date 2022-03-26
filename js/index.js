@@ -136,6 +136,7 @@ $(document).ready(function()
         if(keycode == 13) 
         {
 
+            $("#more").hide();
             
             $.get(search,function(data,status){
         
@@ -166,9 +167,7 @@ $(document).ready(function()
             $.get(popularmovies+`&page=${morepagecount}`,function(data,status){
             
     
-    
-    
-                alert(morepagecount);
+                // alert(morepagecount);
     
     
               fillhtml(popularmovies+`&page=${morepagecount}`,data);
@@ -339,7 +338,8 @@ $(document).ready(function()
 
                     pagecount=10;
 
-                    alert(pagecount);
+                    // alert(pagecount);
+
                     clearInterval(myInterval);
                 }
 
