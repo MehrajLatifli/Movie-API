@@ -19,11 +19,12 @@ header{
 
 .search{
     background-color: transparent;
+    position: relative;
     border: 5px solid var(--primary-color);
     padding: 6pt,12pt;
     border-radius: 50px;
     font-size: 24pt;
-    width: 500px;
+    width: 50%;
     color: white;
     font-family: 'Times New Roman', Times, serif;
 }
