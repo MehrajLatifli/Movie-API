@@ -186,7 +186,7 @@ $(document).ready(function()
                 fillhtml(popularmovies+`&page=${pagecount}`,data);
          
                 console.log(htmlString.substring('undefined'.length));
-              });
+            });
 
         }
 
