@@ -96,9 +96,11 @@ var setgenre="";
 
 var choosegenre=[];
 
-var pagecount=1;
+var pagecount=10;
 
-var hasclear=false;
+
+var morepagecount=1;
+
 
 
 $(document).ready(function()
@@ -156,43 +158,31 @@ $(document).ready(function()
 
         e.preventDefault();
 
-        pagecount++;
-        
-        
-        if(hasclear==true)
-        {
 
-            $.get(popularmovies+`&page=${pagecount}`,function(data,status){
+        morepagecount++;
+        
+       
+
+            $.get(popularmovies+`&page=${morepagecount}`,function(data,status){
             
     
     
-              fillhtml(popularmovies+`&page=${pagecount}`,data);
+    
+                alert(morepagecount);
+    
+    
+              fillhtml(popularmovies+`&page=${morepagecount}`,data);
        
               console.log(htmlString.substring('undefined'.length));
             });
-        }
-
-        else{
-
-            
-            $.get(popularmovies+`&page=${pagecount}`,function(data,status){
-            
-
-                htmlString="";
         
-                $("#main").html('');
-    
-    
-                fillhtml(popularmovies+`&page=${pagecount}`,data);
-         
-                console.log(htmlString.substring('undefined'.length));
-            });
 
-        }
 
+                
         
     });
 
+    
     function fillhtml(popularmovies,data)
     {
 
@@ -330,10 +320,32 @@ $(document).ready(function()
                 }
 
                 console.log(choosegenre);
+                main.innerHTML = '';
 
-                getGenreMovies(popularmovies + '&with_genres='+encodeURI(choosegenre.join(',')));
+               var myInterval= setInterval(() => {
+                    
+                    if(pagecount>0)
+                    {
+
+                        getGenreMovies(popularmovies+`&page=${pagecount}` + '&with_genres='+encodeURI(choosegenre.join(',')));
+                        
+                        pagecount--;
+                    }
+
+                    
+                }, 50);
+                
+                if(pagecount==0){
+
+                    pagecount=10;
+
+                    alert(pagecount);
+                    clearInterval(myInterval);
+                }
 
                 highlightSelection(choosegenre);
+
+                $("#more").hide();
      
             })
             tagsEl.append(t);
@@ -355,7 +367,7 @@ $(document).ready(function()
               }
               else{
     
-                  main.innerHTML= `<h1 class="no-results">No Results Found</h1>`
+                //   main.innerHTML= `<h1 class="no-results">No Results Found</h1>`
     
               }
              
@@ -365,7 +377,8 @@ $(document).ready(function()
     
     
       function showMovies(data) {
-        main.innerHTML = '';
+          
+       
     
         data.forEach(movie => {
             const {title, poster_path, vote_average, overview, id} = movie;
@@ -475,11 +488,17 @@ $(document).ready(function()
 
                 choosegenre = [];
                 creategenre();            
+
+
+
+                main.innerHTML = '';
+
+                choosegenre = [];
+                creategenre();            
                 getGenreMovies(popularmovies);
 
-
-                
-                
+                $("#more").show();
+                morepagecount=1;
             });
 
     
@@ -491,6 +510,7 @@ $(document).ready(function()
 
         }
         
+
         
     }
     
