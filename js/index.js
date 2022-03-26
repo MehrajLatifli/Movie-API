@@ -149,6 +149,7 @@ $(document).ready(function()
               console.log(htmlString.substring('undefined'.length));
             });
 
+            clearBtn();
 
         }
 
